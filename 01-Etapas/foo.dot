@@ -1,0 +1,68 @@
+digraph AST {
+    node [shape=box];
+
+    FunctionDecl [label="FunctionDecl: foo\n'int (int)'"];
+    ParmVarDecl [label="ParmVarDecl: n\n'int'"];
+    CompoundStmt [label="CompoundStmt"];
+    IfStmt [label="IfStmt (has_else)"];
+
+    // Condição: n < 0 || n == 5
+    OrExpr [label="BinaryOperator: '||'"];
+
+    // Lado esquerdo do ||
+    LessThan [label="BinaryOperator: '<'"];
+    CastLT [label="ImplicitCastExpr\n(LValueToRValue)"];
+    RefLT [label="DeclRefExpr: n"];
+    Int0 [label="IntegerLiteral: 0"];
+
+    // Lado direito do ||
+    Equal [label="BinaryOperator: '=='"];
+    CastEQ [label="ImplicitCastExpr\n(LValueToRValue)"];
+    RefEQ [label="DeclRefExpr: n"];
+    Int5 [label="IntegerLiteral: 5"];
+
+    // Then
+    ThenReturn [label="ReturnStmt"];
+    UnaryMinus [label="UnaryOperator: '-'"];
+    CastThen [label="ImplicitCastExpr\n(LValueToRValue)"];
+    RefThen [label="DeclRefExpr: n"];
+
+    // Else
+    ElseReturn [label="ReturnStmt"];
+    MulTop [label="BinaryOperator: '*'"];
+    MulLeft [label="BinaryOperator: '*'"];
+    CastElse [label="ImplicitCastExpr\n(LValueToRValue)"];
+    RefElse [label="DeclRefExpr: n"];
+    Int73 [label="IntegerLiteral: 73"];
+    Int9 [label="IntegerLiteral: 9"];
+
+    // Edges
+    FunctionDecl -> ParmVarDecl;
+    FunctionDecl -> CompoundStmt;
+    CompoundStmt -> IfStmt;
+
+    IfStmt -> OrExpr;
+    // Lado esquerdo
+    OrExpr -> LessThan;
+    LessThan -> CastLT;
+    CastLT -> RefLT;
+    LessThan -> Int0;
+    // Lado direito
+    OrExpr -> Equal;
+    Equal -> CastEQ;
+    CastEQ -> RefEQ;
+    Equal -> Int5;
+
+    IfStmt -> ThenReturn;
+    ThenReturn -> UnaryMinus;
+    UnaryMinus -> CastThen;
+    CastThen -> RefThen;
+
+    IfStmt -> ElseReturn;
+    ElseReturn -> MulTop;
+    MulTop -> MulLeft;
+    MulLeft -> CastElse;
+    CastElse -> RefElse;
+    MulLeft -> Int73;
+    MulTop -> Int9;
+}

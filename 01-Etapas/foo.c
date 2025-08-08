@@ -8,3 +8,7 @@ int foo(int n){
     else
         return n * 73 * MAGICNUMBER;
 }
+
+int main(){
+    return 0;
+}
