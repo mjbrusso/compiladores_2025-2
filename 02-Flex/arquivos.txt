@@ -262,6 +262,6 @@ drwxr-xr-x  2 root   root     4096 2025-03-05 15:17 wpa_supplicant
 drwxr-xr-x 11 root   root     4096 2024-07-21 09:46 X11
 -rw-r--r--  1 root   root      681 2024-04-08 12:54 xattr.conf
 drwxr-xr-x  6 root   root     4096 2024-07-21 09:46 xdg
-drwxr-xr-x  2 root   root     4096 2025-02-04 15:29 xml
-drwxr-xr-x  4 root   root     4096 2025-08-11 18:04 zfs
+drwxr-xr-x  2 root   root     4096 2025-02-04 15:79 xml
+drwxr-xr-x  4 root   root     4096 2025-08-11 28:04 zfs
 -rw-r--r--  1 root   root      460 2023-01-20 10:39 zsh_command_not_found
