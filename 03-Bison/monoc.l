@@ -15,6 +15,7 @@
 "print"                    { return PRINT; }
 "("                        { return LPAREN; }
 ")"                        { return RPAREN; }
+
 [0-9]+                     { return INTLITERAL; /* TODO: yylval */ }
 "+"                        { return PLUS; }
 "-"                        { return MINUS; }
@@ -40,7 +41,7 @@
 "}"                        { return RBRACE; }
 ","                        { return COMMA; }
 [A-Za-z][A-Za-z0-9_]*      { return IDENT; /* TODO: yylval */ }
-   
+
 .                          {
                               fprintf(stderr, "Error: '%s' is not recognized (line %d)\n", yytext, yylineno);
                               exit(1);

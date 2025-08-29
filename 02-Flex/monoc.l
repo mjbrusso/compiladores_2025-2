@@ -13,7 +13,6 @@ void print_token(const char *token_name) {
 "//".*                     ; /* Ignora comentários de linha */ 
 [ \t\n]                    ; /* Ignora espaços em branco e tabulações */
 [0-9]+                     { print_token("INTLITERAL"); }
-
 "var"                      { print_token("VARDEF"); }
 "if"                       { print_token("IF"); }
 "else"                     { print_token("ELSE"); }
@@ -24,6 +23,7 @@ void print_token(const char *token_name) {
 "not"                      { print_token("NOT"); }
 "print"                    { print_token("PRINT"); }
 "read"                     { print_token("READ"); }
+[A-Za-z][A-Za-z0-9_]*      { print_token("IDENT"); }
 "="                        { print_token("ATTRIB"); }
 "=="                       { print_token("EQUAL"); }
 "!="                       { print_token("NOTEQ"); }
@@ -41,7 +41,6 @@ void print_token(const char *token_name) {
 "}"                        { print_token("RBRACE"); }
 ";"                        { print_token("SEMICOLON"); }
 ","                        { print_token("COMMA"); }
-[A-Za-z][A-Za-z0-9_]*      { print_token("IDENT"); }
 
 .                          {
                               fprintf(stderr, "Error: '%s' is not recognized (line %d)\n",  yytext, yylineno);

@@ -1,12 +1,14 @@
 // Exemplo de programa em MonoC com var
+
 var x = 10;
-var y = 0;
+
+var y = (x + 10) * 3;
 
 while (x > 0) { // Loop
     y = (y + x) * 150;
     print(y);
     x = x - 1;
-    if (x == 5) {
+    if (not x) {
         break;
     }
 }
