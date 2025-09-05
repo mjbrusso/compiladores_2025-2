@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "monoc.tab.h"
-
 %}
 
 %option yylineno
@@ -16,7 +15,7 @@
 "("                        { return LPAREN; }
 ")"                        { return RPAREN; }
 
-[0-9]+                     { return INTLITERAL; /* TODO: yylval */ }
+[0-9]+                     { yylval = atoi(yytext); return INTLITERAL;  }
 "+"                        { return PLUS; }
 "-"                        { return MINUS; }
 "*"                        { return TIMES; }

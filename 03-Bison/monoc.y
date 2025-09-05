@@ -39,16 +39,30 @@
 %token COMMA
 %token IDENT
 
+%left PLUS MINUS
+%left TIMES DIVIDE
+
 %%
 
     /* Regras sintáticas e ações semanticas */
 program:
-    program cmd
+    program command
     | /* programa vazio */
+    ; 
+
+command:
+    PRINT LPAREN RPAREN SEMICOLON               { printf("\n"); }
+    | PRINT LPAREN expression RPAREN SEMICOLON  { printf("%d\n", $3); }
     ;
 
-cmd:
-    PRINT LPAREN RPAREN SEMICOLON   { }
+expression:
+    INTLITERAL          { $$ = $1; }
+    | arithmeticOp      { }
+    ;
+
+arithmeticOp:
+    expression PLUS expression      { $$ = $1 + $3; }
+    | expression MINUS expression   { $$ = $1 - $3; }
     ;
 
 %%
