@@ -53,11 +53,19 @@ program:
 command:
     PRINT LPAREN RPAREN SEMICOLON               { printf("\n"); }
     | PRINT LPAREN expression RPAREN SEMICOLON  { printf("%d\n", $3); }
+    | VARDEF IDENT SEMICOLON                    { }
+    | VARDEF IDENT ATTRIB expression SEMICOLON  { }
     ;
 
 expression:
-    INTLITERAL          { $$ = $1; }
-    | arithmeticOp      { }
+      INTLITERAL            { $$ = $1; }
+    | arithmeticOp          { }
+    | READ LPAREN RPAREN    { 
+                                int n;
+                                scanf("%d", &n);
+                                $$ = n; 
+                            }
+    | LPAREN expression RPAREN { $$ = $2; }
     ;
 
 arithmeticOp:

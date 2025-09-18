@@ -2,6 +2,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "monoc.tab.h"
+#include "symtab.h"
+
+Symtab* ts; // tabela de simbolos
 %}
 
 %option yylineno
@@ -39,7 +42,7 @@
 "{"                        { return LBRACE; }
 "}"                        { return RBRACE; }
 ","                        { return COMMA; }
-[A-Za-z][A-Za-z0-9_]*      { return IDENT; /* TODO: yylval */ }
+[A-Za-z][A-Za-z0-9_]*      { yylval = yytext; return IDENT;  }
 
 .                          {
                               fprintf(stderr, "Error: '%s' is not recognized (line %d)\n", yytext, yylineno);

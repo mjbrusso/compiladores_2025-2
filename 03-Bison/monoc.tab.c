@@ -468,16 +468,16 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  2
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   20
+#define YYLAST   31
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  32
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  5
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  11
+#define YYNRULES  13
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  21
+#define YYNSTATES  27
 
 /* YYMAXUTOK -- Last valid token kind.  */
 #define YYMAXUTOK   286
@@ -529,8 +529,8 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    49,    49,    50,    54,    55,    59,    60,    64,    65,
-      66,    67
+       0,    49,    49,    50,    54,    55,    59,    60,    61,    66,
+      70,    71,    72,    73
 };
 #endif
 
@@ -575,9 +575,9 @@ yysymbol_name (yysymbol_kind_t yysymbol)
    STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-     -10,    12,   -10,     3,   -10,     9,     7,   -10,    -5,   -10,
-     -10,    11,    13,    13,    13,    13,   -10,    -9,    -9,   -10,
-     -10
+     -10,     4,   -10,    -1,   -10,     1,    11,     3,   -10,    15,
+      12,   -10,    20,   -10,    21,    10,    11,    11,    11,    11,
+     -10,   -10,   -10,    -9,    -9,   -10,   -10
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -585,21 +585,21 @@ static const yytype_int8 yypact[] =
    means the default is an error.  */
 static const yytype_int8 yydefact[] =
 {
-       3,     0,     1,     0,     2,     0,     0,     6,     0,     7,
-       4,     0,     0,     0,     0,     0,     5,     8,     9,    10,
-      11
+       3,     0,     1,     0,     2,     0,     0,     0,     6,     0,
+       0,     7,     0,     4,     0,     0,     0,     0,     0,     0,
+       9,     8,     5,    10,    11,    12,    13
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -10,   -10,   -10,    -4,   -10
+     -10,   -10,   -10,    -6,   -10
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-       0,     1,     4,     8,     9
+       0,     1,     4,    10,    11
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -607,39 +607,41 @@ static const yytype_int8 yydefgoto[] =
    number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-      11,    14,    15,    12,    13,    14,    15,     5,    17,    18,
-      19,    20,     2,    10,     6,     3,     7,    16,     0,     0,
-       7
+      12,    18,    19,     5,     2,     6,     7,     3,     8,    13,
+      23,    24,    25,    26,     9,     6,    22,    15,     8,    14,
+      16,    17,    18,    19,     9,    20,    21,     0,    16,    17,
+      18,    19
 };
 
 static const yytype_int8 yycheck[] =
 {
-       5,    10,    11,     8,     9,    10,    11,     4,    12,    13,
-      14,    15,     0,     6,     5,     3,     7,     6,    -1,    -1,
-       7
+       6,    10,    11,     4,     0,     4,     5,     3,     7,     6,
+      16,    17,    18,    19,    13,     4,     6,     5,     7,     4,
+       8,     9,    10,    11,    13,     5,     5,    -1,     8,     9,
+      10,    11
 };
 
 /* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
    state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,    33,     0,     3,    34,     4,     5,     7,    35,    36,
-       6,     5,     8,     9,    10,    11,     6,    35,    35,    35,
-      35
+       0,    33,     0,     3,    34,     4,     4,     5,     7,    13,
+      35,    36,    35,     6,     4,     5,     8,     9,    10,    11,
+       5,     5,     6,    35,    35,    35,    35
 };
 
 /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    32,    33,    33,    34,    34,    35,    35,    36,    36,
-      36,    36
+       0,    32,    33,    33,    34,    34,    35,    35,    35,    35,
+      36,    36,    36,    36
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr2[] =
 {
        0,     2,     2,     0,     4,     5,     1,     1,     3,     3,
-       3,     3
+       3,     3,     3,     3
 };
 
 
@@ -1105,53 +1107,69 @@ yyreduce:
   case 4: /* command: PRINT LPAREN RPAREN SEMICOLON  */
 #line 54 "monoc.y"
                                                 { printf("\n"); }
-#line 1109 "monoc.tab.c"
+#line 1111 "monoc.tab.c"
     break;
 
   case 5: /* command: PRINT LPAREN expression RPAREN SEMICOLON  */
 #line 55 "monoc.y"
                                                 { printf("%d\n", yyvsp[-2]); }
-#line 1115 "monoc.tab.c"
+#line 1117 "monoc.tab.c"
     break;
 
   case 6: /* expression: INTLITERAL  */
 #line 59 "monoc.y"
-                        { yyval = yyvsp[0]; }
-#line 1121 "monoc.tab.c"
+                            { yyval = yyvsp[0]; }
+#line 1123 "monoc.tab.c"
     break;
 
   case 7: /* expression: arithmeticOp  */
 #line 60 "monoc.y"
-                        { }
-#line 1127 "monoc.tab.c"
+                            { }
+#line 1129 "monoc.tab.c"
     break;
 
-  case 8: /* arithmeticOp: expression PLUS expression  */
-#line 64 "monoc.y"
-                                    { yyval = yyvsp[-2] + yyvsp[0]; }
-#line 1133 "monoc.tab.c"
-    break;
-
-  case 9: /* arithmeticOp: expression MINUS expression  */
-#line 65 "monoc.y"
-                                    { yyval = yyvsp[-2] - yyvsp[0]; }
+  case 8: /* expression: READ LPAREN RPAREN  */
+#line 61 "monoc.y"
+                            { 
+                                int n;
+                                scanf("%d", &n);
+                                yyval = n; 
+                            }
 #line 1139 "monoc.tab.c"
     break;
 
-  case 10: /* arithmeticOp: expression TIMES expression  */
+  case 9: /* expression: LPAREN expression RPAREN  */
 #line 66 "monoc.y"
-                                    { yyval = yyvsp[-2] * yyvsp[0]; }
+                               { yyval = yyvsp[-1]; }
 #line 1145 "monoc.tab.c"
     break;
 
-  case 11: /* arithmeticOp: expression DIVIDE expression  */
-#line 67 "monoc.y"
-                                    { yyval = yyvsp[-2] / yyvsp[0]; }
+  case 10: /* arithmeticOp: expression PLUS expression  */
+#line 70 "monoc.y"
+                                    { yyval = yyvsp[-2] + yyvsp[0]; }
 #line 1151 "monoc.tab.c"
     break;
 
+  case 11: /* arithmeticOp: expression MINUS expression  */
+#line 71 "monoc.y"
+                                    { yyval = yyvsp[-2] - yyvsp[0]; }
+#line 1157 "monoc.tab.c"
+    break;
 
-#line 1155 "monoc.tab.c"
+  case 12: /* arithmeticOp: expression TIMES expression  */
+#line 72 "monoc.y"
+                                    { yyval = yyvsp[-2] * yyvsp[0]; }
+#line 1163 "monoc.tab.c"
+    break;
+
+  case 13: /* arithmeticOp: expression DIVIDE expression  */
+#line 73 "monoc.y"
+                                    { yyval = yyvsp[-2] / yyvsp[0]; }
+#line 1169 "monoc.tab.c"
+    break;
+
+
+#line 1173 "monoc.tab.c"
 
       default: break;
     }
@@ -1344,7 +1362,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 70 "monoc.y"
+#line 76 "monoc.y"
 
     /* Código */
 
