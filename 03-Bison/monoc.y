@@ -1,5 +1,6 @@
 %{  /* Declarações */
     #include <stdio.h> // printf, ...
+    #include "symtab.h"
 
     int yylex();                    // Declara função do analizador léxico
     void yyerror(const char* s);    // Declara função para tratamento de erros
@@ -7,13 +8,18 @@
     extern char *yytext;            // Variável com o texto atual sendo analizado
 %}
 
+%union{
+    int ival;
+    SymtabEntry *sval;
+}
+
  // Tokens, tipos, precedências, etc.
 
 %token PRINT 
 %token LPAREN
 %token RPAREN
 %token SEMICOLON
-%token INTLITERAL
+%token<ival> INTLITERAL
 %token PLUS
 %token MINUS
 %token TIMES
@@ -37,10 +43,13 @@
 %token LBRACE
 %token RBRACE
 %token COMMA
-%token IDENT
+%token<sval> IDENT
 
 %left PLUS MINUS
 %left TIMES DIVIDE
+
+%type <ival> expression
+%type <ival> arithmeticOp
 
 %%
 
@@ -53,8 +62,16 @@ program:
 command:
     PRINT LPAREN RPAREN SEMICOLON               { printf("\n"); }
     | PRINT LPAREN expression RPAREN SEMICOLON  { printf("%d\n", $3); }
-    | VARDEF IDENT SEMICOLON                    { }
-    | VARDEF IDENT ATTRIB expression SEMICOLON  { }
+    | VARDEF IDENT SEMICOLON                    { $2->defined = 1;}
+    | VARDEF IDENT ATTRIB expression SEMICOLON  { $2->defined = 1; 
+                                                  $2->value = $4; }
+    | IDENT ATTRIB expression SEMICOLON         {
+                                                if(!$1->defined){
+                                                    fprintf(stderr, "%s not defined (line %d)\n", yytext, yylineno);
+                                                    exit(1);
+                                                }
+                                                $1->value = $3; 
+                                                }                                              
     ;
 
 expression:
@@ -66,6 +83,12 @@ expression:
                                 $$ = n; 
                             }
     | LPAREN expression RPAREN { $$ = $2; }
+    | IDENT                    { 
+                                if(!$1->defined){
+                                    fprintf(stderr, "%s not defined (line %d)\n", yytext, yylineno);
+                                    exit(1);
+                                }
+                                $$ = $1->value; }
     ;
 
 arithmeticOp:

@@ -1,10 +1,10 @@
 %{
 #include <stdio.h>
 #include <stdlib.h>
-#include "monoc.tab.h"
 #include "symtab.h"
+#include "monoc.tab.h"
 
-Symtab* ts; // tabela de simbolos
+Symtab* ts; // tabela de símbolos
 %}
 
 %option yylineno
@@ -18,7 +18,7 @@ Symtab* ts; // tabela de simbolos
 "("                        { return LPAREN; }
 ")"                        { return RPAREN; }
 
-[0-9]+                     { yylval = atoi(yytext); return INTLITERAL;  }
+[0-9]+                     { yylval.ival = atoi(yytext); return INTLITERAL;  }
 "+"                        { return PLUS; }
 "-"                        { return MINUS; }
 "*"                        { return TIMES; }
@@ -42,7 +42,9 @@ Symtab* ts; // tabela de simbolos
 "{"                        { return LBRACE; }
 "}"                        { return RBRACE; }
 ","                        { return COMMA; }
-[A-Za-z][A-Za-z0-9_]*      { yylval = yytext; return IDENT;  }
+[A-Za-z][A-Za-z0-9_]*      { yylval.sval = symtab_insert(ts, yytext); 
+                             return IDENT;  
+                           }
 
 .                          {
                               fprintf(stderr, "Error: '%s' is not recognized (line %d)\n", yytext, yylineno);
@@ -62,9 +64,12 @@ int main(int argc, char **argv) {
         fprintf(stderr, "Error: could not open file %s\n", argv[1]);
         return 1;
     }
+
+    ts = symtab_create(); // Cria a tabela hash para símbolos
     yyin = input;
     yyparse();
     fclose(input);
+    symtab_destroy(ts);  // Destroy a tabela
     return 0;
 }
 
